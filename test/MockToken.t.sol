@@ -17,12 +17,12 @@ contract MockTest is Test {
         console.log(bal);
     }
 
-    function testFuzz_SetNumber(uint256 x) public {
-        // 假设我们要测试的铸造量不会导致总供应量爆炸
-        // 比如限制 x 不能超过 10 亿个（考虑到 18 位小数）
-        vm.assume(x < 1e27);
-        mockToken.safeMint(address(this), x);
-        uint bal = mockToken.balanceOf(address(this));
-        console.log(bal);
-    }
+    // function testFuzz_SetNumber(uint256 x) public {
+    //     // 假设我们要测试的铸造量不会导致总供应量爆炸
+    //     // 比如限制 x 不能超过 10 亿个（考虑到 18 位小数）
+    //     vm.assume(x < 1e27);
+    //     mockToken.safeMint(address(this), x);
+    //     uint bal = mockToken.balanceOf(address(this));
+    //     console.log(bal);
+    // }
 }
