@@ -58,6 +58,32 @@ contract NftMarketTest is Test {
         vm.prank(alice);
         mockToken.approve(address(nftMarket), price);
         _BuyNft();
+
+        uint bal = mockToken.balanceOf(address(jack));
+        console.log("jack ERC20 money sum", bal);
+
+        uint bl = mockNFT.balanceOf(alice);
+        console.log("alice nft sum is", bl);
+    }
+
+    function test_ListAndBuyNft1363() public {
+        uint256 nftId = 1;
+        uint256 price = 888 ether;
+
+        vm.prank(jack);
+        mockNFT.approve(address(nftMarket), nftId);
+        _List();
+
+        vm.prank(alice);
+        // mockToken.approve(address(nftMarket), price);
+        // _BuyNft();
+        mockToken.approveAndCall(address(nftMarket), price, abi.encode(nftId));
+
+        uint bal = mockToken.balanceOf(address(jack));
+        console.log("jack ERC20 money sum", bal);
+
+        uint bl = mockNFT.balanceOf(alice);
+        console.log("alice nft sum is", bl);
     }
 
     // 测试上架功能
@@ -91,11 +117,5 @@ contract NftMarketTest is Test {
 
         vm.prank(alice);
         nftMarket.buyNFT(nftId, price);
-
-        uint bal = mockToken.balanceOf(address(jack));
-        console.log("jack ERC20 money sum", bal);
-
-        uint bl = mockNFT.balanceOf(alice);
-        console.log("alice nft sum is", bl);
     }
 }
